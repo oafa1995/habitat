@@ -1,0 +1,8 @@
+/* Credit to bootsnipp.com for the css for the color graph */
+.colorgraph {
+  height: 5px;
+  border-top: 0;
+  background: #001155;
+  border-radius: 5px;
+
+}
