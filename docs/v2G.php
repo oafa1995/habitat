@@ -192,15 +192,22 @@ function ayuda(){
 	   	
         <div class="container-fluid">
             <ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
+
+
+
+        
                
-            <li role="presentation"><a href="v1G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes de aprobacion</a></li>
-            <li role="presentation"><a href="v2G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes sección-Situación económica familiar</a></li>
-            <li role="presentation"><a href="v3G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes sección-Situación habitacional</a></li>
-            <li role="presentation"><a href="v4G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes sección-Situación Salud</a></li>
-            <li role="presentation"><a href="mapaNacional.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Mapa Nacional</a></li>
-
-
+   
+               
+            <li role="presentation"><a href="madresSolterasGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Madres Solteras</a></li>
+                <li role="presentation"><a href="fuenteEmpleoGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Fuentes de ingresos</a></li>
+                <li role="presentation"><a href="remesasGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Remesas</a></li>
+                <li role="presentation"><a href="ingresosMensualesGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Ingresos Mensuales</a></li>
+                <li role="presentation"><a href="ultimoMesesGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Ingresos ultimos tres meses</a></li>
+				<li role="presentation"><a href="motivoAfectacionIngresosGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Afectación de ingresos</a></li>
+				
             </ul>
+          
 		<!--	<br>
 			<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
 				<li role="presentation"><a href="imprimirMateriaPrima.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Materia Prima General</a></li>
@@ -220,7 +227,7 @@ function ayuda(){
  
 	
 
-
+        </div>
 	   
 	  
 	   
@@ -238,4 +245,3 @@ function ayuda(){
 </body>
 </html>
 
- 

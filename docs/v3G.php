@@ -191,16 +191,56 @@ function ayuda(){
 		
 	   	
         <div class="container-fluid">
-            <ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
+        <ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
+
+
+
+        
                
-            <li role="presentation"><a href="v1G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes de aprobacion</a></li>
-            <li role="presentation"><a href="v2G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes sección-Situación económica familiar</a></li>
-            <li role="presentation"><a href="v3G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes sección-Situación habitacional</a></li>
-            <li role="presentation"><a href="v4G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes sección-Situación Salud</a></li>
-            <li role="presentation"><a href="mapaNacional.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Mapa Nacional</a></li>
+   
+               
+<li role="presentation"><a href="tenenciaGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Tenencia Propiedad</a></li>
+    <li role="presentation"><a href="cnrGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Clientes con propiedad registrada en CNR</a></li>
+    <li role="presentation"><a href="legalizadoGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Motivos por los que no ha legalizado la propiedad</a></li>
+    <li role="presentation"><a href="espaciosViviendaGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Espacios de vivienda afectada</a></li>
+  
 
 
-            </ul>
+</ul>
+
+<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
+<li role="presentation"><a href="materialesParedesGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Materiales de paredes de viviendas afectadas</a></li>
+    <li role="presentation"><a href="materialesTechoGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Materiales de techo de vivienda evaluada</a></li>
+    <li role="presentation"><a href="materialesPisoGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Materiales de piso de vivienda evaluada</a></li>
+
+</ul>
+
+<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
+<li role="presentation"><a href="partesViviendaGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Partes dañadas de vivienda evaluada</a></li>
+    <li role="presentation"><a href="aguaPotableGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Servicio de agua potable en vivienda</a></li>
+<li role="presentation"><a href="abastecimientoAguaGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Formas de abastecimiento de servicio de agua</a></li>
+<li role="presentation"><a href="cuentaConEnergiaGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Servicio de energia electrica en vivienda</a></li>
+<li role="presentation"><a href="abastecimientoEnergiaGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Formas de abastecimiento de energia electrica</a></li>
+
+</ul>
+
+<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
+<li role="presentation"><a href="tipoSanitarioGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Tipo de Sanitario que poseen</a></li>
+<li role="presentation"><a href="combustibleCocinaGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Tipo de combustible usado en vivienda</a></li>
+<li role="presentation"><a href="graficaEquipoGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Equipo que poseen en la vivienda</a></li>
+<li role="presentation"><a href="telefonoCelularGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Telefono Celular</a></li>
+</ul>
+<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
+<li role="presentation"><a href="servicioCableGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Servicio de cable</a></li>
+<li role="presentation"><a href="internetGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Servicio de internet</a></li>
+<li role="presentation"><a href="viviendasAfectadasGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Evento que afecto la vivienda</a></li>
+</ul>
+<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">  
+<li role="presentation"><a href="nivelAfectacionGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Nivel de afectacion</a></li>
+<li role="presentation"><a href="danoParcialGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Daño parcial en vivienda</a></li>
+<li role="presentation"><a href="viviendaAfectadGenerala.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Viviendas afectadas por evento natural </a></li>
+<li role="presentation"><a href="afectacionMediosGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Afectacion en medios de vida </a></li>
+</ul>
 		<!--	<br>
 			<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
 				<li role="presentation"><a href="imprimirMateriaPrima.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Materia Prima General</a></li>
@@ -220,7 +260,7 @@ function ayuda(){
  
 	
 
-
+        </div>
 	   
 	  
 	   
@@ -238,4 +278,3 @@ function ayuda(){
 </body>
 </html>
 
- 

@@ -192,15 +192,20 @@ function ayuda(){
 	   	
         <div class="container-fluid">
             <ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
+
+
+
+        
                
-            <li role="presentation"><a href="v1G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes de aprobacion</a></li>
-            <li role="presentation"><a href="v2G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes sección-Situación económica familiar</a></li>
-            <li role="presentation"><a href="v3G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes sección-Situación habitacional</a></li>
-            <li role="presentation"><a href="v4G.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Reportes sección-Situación Salud</a></li>
-            <li role="presentation"><a href="mapaNacional.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Mapa Nacional</a></li>
+   
+            <li role="presentation"><a href="saludFamiliarGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Salud Familiar</a></li>
+				<li role="presentation"><a href="enfermedadCronicaGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Familiares con enfermedad cronica</a></li>
+				<li role="presentation"><a href="enfermedadesCronicasGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Enfemerdades cronicas que parecen los familiares</a></li>
+                <li role="presentation"><a href="tratamientoMedicoGeneral.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Esta bajo tratamiento medico</a></li>
 
 
             </ul>
+          
 		<!--	<br>
 			<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
 				<li role="presentation"><a href="imprimirMateriaPrima.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Materia Prima General</a></li>
@@ -220,7 +225,7 @@ function ayuda(){
  
 	
 
-
+        </div>
 	   
 	  
 	   
@@ -238,4 +243,3 @@ function ayuda(){
 </body>
 </html>
 
- 
