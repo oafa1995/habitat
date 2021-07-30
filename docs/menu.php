@@ -158,9 +158,9 @@ if($niv==1){
                         </ul>
                     </li>
 
-                    <li><a href="gestionarporAgencia.php"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>&nbsp;&nbsp; Reportes Generales</a></li>
+                    <li><a href="gestionarReportesG.php"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>&nbsp;&nbsp; Reportes Generales</a></li>
                   
-                    <li><a href="gestionarporAgencia.php"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>&nbsp;&nbsp; Reportes por agencia</a></li>
+                    <li><a href="gestionarPorAgencia.php"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>&nbsp;&nbsp; Reportes por agencia</a></li>
 
                     </ul>
 
