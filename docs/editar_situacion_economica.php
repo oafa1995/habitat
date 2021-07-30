@@ -343,7 +343,7 @@ $('#grupoF').on('input', function () {
   }
 
   function alertaErrorIngresar(){
-  alertify.error("<h1>Error</h1>"+"<p>No se puedo ingresar el paciente </p>"+"<img src='../img/error.png'>").dismissOthers();
+  alertify.error("<h1>Error</h1>"+"<p>No se puede ingresar el beneficiario</p>"+"<img src='../img/error.png'>").dismissOthers();
 
 
   }
