@@ -866,12 +866,12 @@ $sexo=$_SESSION["sexoT"];
   <div class="col-md-2">
   <select id="promedio" name="promedio" class="form-control input-md" >
 
-  <option value="Menos de $50" <?php if($fr=="Menos de $50") echo "selected"; ?>>Menos de $50</option>
-  <option value="Entre $51 y $100" <?php if($fr=="Entre $51 y $100") echo "selected"; ?>>Entre $51 y $100</option>
-  <option value="Entre $101 y $200" <?php if($fr=="Entre $101 y $200") echo "selected"; ?>>Entre $101 y $200</option>
-  <option value="Entre $201 y $300" <?php if($fr=="Entre $201 y $300") echo "selected"; ?>>Entre $201 y $300</option>
-  <option value="Mas de $300" <?php if($fr=="Mas de $300") echo "selected"; ?>>Mas de $300</option>
-  <option value="Ninguno" <?php if($fr=="Ninguno") echo "selected"; ?>>Ninguno</option>
+  <option value="Menos de $50" <?php if($pror=="Menos de $50") echo "selected"; ?>>Menos de $50</option>
+  <option value="Entre $51 y $100" <?php if($pror=="Entre $51 y $100") echo "selected"; ?>>Entre $51 y $100</option>
+  <option value="Entre $101 y $200" <?php if($pror=="Entre $101 y $200") echo "selected"; ?>>Entre $101 y $200</option>
+  <option value="Entre $201 y $300" <?php if($pror=="Entre $201 y $300") echo "selected"; ?>>Entre $201 y $300</option>
+  <option value="Mas de $300" <?php if($pror=="Mas de $300") echo "selected"; ?>>Mas de $300</option>
+  <option value="Ninguno" <?php if($pror=="Ninguno") echo "selected"; ?>>Ninguno</option>
 
 </select>
 </div>
