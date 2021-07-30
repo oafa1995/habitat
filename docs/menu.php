@@ -122,7 +122,8 @@ if($_SESSION['autenticado']!="yeah"){
 
 		
                     <li><a href="gestionarReportesLocal.php"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>&nbsp;&nbsp; Reportes</a></li>
-					
+                    <li><a href="gestionarConsolidadosLocal.php"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>&nbsp;&nbsp; Informes consolidados de familias</a></li>
+	
 					
 
 
