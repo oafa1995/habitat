@@ -3,7 +3,17 @@
 header("Location: ../index.php");
 	exit();
 	}
+
+
 include("../config/conexion.php");
+
+$id=$_SESSION["idUsuario"];
+
+$query_s= pg_query($conexion,"select idagencia from usuario_agencia where idusuario='$id' ");
+while($fila=pg_fetch_array($query_s)){
+  $idagencia=$fila[0];
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -69,7 +79,19 @@ document.location.href="../config/fin.php";
   }
 	
 	</script>
+    
+    <script type="text/javascript" class="init">
+
+
+
+
+
+ $(document).ready(function () {
+        $('#grid').DataTable();
+    });
+</script>	
 	
+
 	
 	<script>
 	
@@ -80,7 +102,24 @@ function ayuda(){
 }
 	
 	</script>
-	
+    
+    	
+<script type="text/javascript" class="init">
+function llamarPaginaEditar(id){
+	window.open("editarCliente.php?iddatos="+id, '_parent');
+	}
+
+    function llamarPaginaEditar2(id){
+	window.open("solicitudesPerfil.php?iddatos="+id, '_parent');
+	}
+
+    function llamarPaginaFamiliares(id){
+	window.open("familiaresCliente2.php?iddatos="+id, '_parent');
+	}
+
+
+</script>
+
 </head>
 <body>
 
@@ -157,7 +196,12 @@ function ayuda(){
 				
 				
 				
-               
+               <center>
+				<br>
+				 <li style="color:#fff; cursor:default;">
+                    <h4><span class="all-tittles">Buscar Solicitante</span></h4>
+                </li>
+				</center>    
                
 			
 
@@ -168,60 +212,71 @@ function ayuda(){
             </ul>
         </nav>
 		
-		 
-       
-        <div class="container">
-            <div class="page-header">
-              <h1 class="all-tittles">Gestionar Reportes<small></small></h1>
-            </div>
-        </div>
-		
-			<fieldset>
+         
+        <div class="container-fluid"  style="margin: 50px 0;">
+        <table id="grid" class="display" cellspacing="0" width="99%">
+            <thead>
+                <tr>
+				
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Dui</th>
+                    <th>Tel&eacutefono/Celular</th>
+                    <th>Direcci&oacuten</th>
+                    <th>Municipio</th>
+                    <th>Departamento</th>
+            
+             
+			
+                    <th width="3%">&nbsp;</th>
 
-
+					  
 		
-  <div class="container-fluid"  style="margin: 50px 0;">
-            <div class="row">
+                </tr>
+            </thead>
+
+               <tbody>
+			    <?php
+                        include("../config/conexion.php");
+						$query_s= pg_query($conexion, "select c.idcliente,c.nombres,c.apellidos,c.dui,c.telefono,c.direccion,c.municipio,c.departamento from cliente c inner join cliente_agencia ca on c.idcliente=ca.idcliente");
+						while($fila=pg_fetch_array($query_s)){
+						?>
+			   
+            <tr>
+                <td align="left" style="font-size:15px"><?php echo $fila[1]; ?></td>
+                <td align="left" style="font-size:15px"><?php echo $fila[2]; ?></td>
+                <td align="left" style="font-size:15px"><?php echo $fila[3]; ?></td>
+                <td align="left" style="font-size:15px"><?php echo $fila[4]; ?></td>
+                <td align="left" style="font-size:15px"><?php echo $fila[5]; ?></td>
+                <td align="left" style="font-size:15px"><?php echo $fila[6]; ?></td>
+                <td align="left" style="font-size:15px"><?php echo $fila[7]; ?></td>
+           
+
                
-                <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
-                    Seleccione una opción:
-                </div>
-            </div>
-        </div>
+
+                <td class="text-center"><a class='btn btn-success btn-xs' onClick="llamarPaginaEditar2('<?php echo $fila[0]; ?>')"><span class="glyphicon glyphicon-edit"></span> Buscar solicitud</a></td>
+
+			
+			
+				
+            </tr>
+            
 		
-	   	
-        <div class="container-fluid">
-            <ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
-              
-            <li role="presentation"><a href="reporteFS.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Nomina de familias seleccionadas</a></li>
-            <li role="presentation"><a href="reporteFS3.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Consolidado de familias para evaluación de la comunidad</a></li>
-            <li role="presentation"><a href="reporteFS4.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Cuadro de resumen dueños de la propiedad</a></li>
-            <li role="presentation"><a href="reporteFS2.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Nomina de familias seleccionadas por puntaje</a></li>
-            <li role="presentation"><a href="perfilFamiliaLocal.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Perfil de familias</a></li>
-
-
-            </ul>
-		<!--	<br>
-			<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
-				<li role="presentation"><a href="imprimirMateriaPrima.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Materia Prima General</a></li>
-                <li role="presentation"><a href="seleccionarTallerM.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Materia Prima por Taller</a></li>
-				<li role="presentation"><a href="imprimirTutores.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Tutores Activos</a></li>
-				<li role="presentation"><a href="imprimirParticipantes.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Participantes Activos</a></li>
-            </ul>
-			<br>
-			<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
-				<li role="presentation"><a href="imprimirProducto.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Productos Generales</a></li>
-                <li role="presentation"><a href="buscarParticipante2.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Productos por Participante</a></li>
-				<li role="presentation"><a href="asistenciaPorMes2.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Asistencia Por Taller</a></li>
-            </ul>
-        </div> -->
-	
-
- 
-	
-
-
+	         <?php
+						}
+							?>
 	   
+	   </tbody>
+
+    </table>
+	
+	</div>
+
+        <div class="container">
+           
+	
+	   
+        </div>
 	  
 	   
 	   

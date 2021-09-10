@@ -3,13 +3,37 @@
 header("Location: ../index.php");
 	exit();
 	}
+	date_default_timezone_set('America/El_Salvador');
+$cont2=0;
+$idcliente=$_REQUEST["iddatos"];
+$fecha_actual=date("Y-m-d");
+$anio_actual=date("Y");//año
+
+
+include("../config/conexion.php");
+//$iddatos=$_REQUEST["iddatos"];
+$query_s=pg_query($conexion,"select nombres,apellidos from cliente where idcliente='$idcliente'");
+	while($fila=pg_fetch_array($query_s)){
+//    $ridpaciente=$fila[0];
+ $rnombre=$fila[0]." ".$fila[1];
+   // $rfecha=$fila[3];
+		
+	}
+
+   if($idcliente=="" || $idcliente==null){
+	header("Location: index.php");
+	exit();
+	}
+		
+
+
 include("../config/conexion.php");
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Inicio</title>
+    <title>Solicitudes de <?php echo $rnombre; ?></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../img/tittle.ico"  >
@@ -69,7 +93,19 @@ document.location.href="../config/fin.php";
   }
 	
 	</script>
+    
+    <script type="text/javascript" class="init">
+
+
+
+
+
+ $(document).ready(function () {
+        $('#grid').DataTable();
+    });
+</script>	
 	
+
 	
 	<script>
 	
@@ -80,7 +116,21 @@ function ayuda(){
 }
 	
 	</script>
-	
+    
+    	
+<script type="text/javascript" class="init">
+function llamarPaginaEditar(id){
+	window.open("perfil.php?iddatos="+id, '_parent');
+	}
+
+    function llamarPaginaIngresar(id){
+	window.open("situacion_economica.php?iddatos="+id, '_parent');
+	}
+
+
+
+</script>
+
 </head>
 <body>
 
@@ -157,7 +207,12 @@ function ayuda(){
 				
 				
 				
-               
+               <center>
+				<br>
+				 <li style="color:#fff; cursor:default;">
+                    <h4><span class="all-tittles">Solicitudes de <?php echo $rnombre; ?></span></h4>
+                </li>
+				</center>    
                
 			
 
@@ -168,60 +223,64 @@ function ayuda(){
             </ul>
         </nav>
 		
-		 
-       
-        <div class="container">
-            <div class="page-header">
-              <h1 class="all-tittles">Gestionar Reportes<small></small></h1>
-            </div>
-        </div>
-		
-			<fieldset>
-
-
-		
-  <div class="container-fluid"  style="margin: 50px 0;">
-            <div class="row">
+    
+  
+        <div class="container-fluid"  style="margin: 50px 0;">
+        <table id="grid" class="display" cellspacing="0" width="99%">
+            <thead>
+                <tr>
+				
+                    <th>Fecha</th>
                
-                <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
-                    Seleccione una opción:
-                </div>
-            </div>
-        </div>
+                
+                    <th>Estado</th>
+             
+			
+                    <th width="3%">&nbsp;</th>
+
+					       
 		
-	   	
-        <div class="container-fluid">
-            <ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
+                </tr>
+            </thead>
+
+               <tbody>
+			    <?php
+                        include("../config/conexion.php");
+						$query_s= pg_query($conexion, "select idsolicitud,idcliente,fecha from solicitud where idcliente='$idcliente' ");
+						while($fila=pg_fetch_array($query_s)){
+						?>
+			   
+            <tr>
+  
+
+             
+                <td align="left" style="font-size:15px"><?php echo dameFecha($fila[2]); ?></td>
+                <td align="left" style="font-size:15px"><?php echo "probando"; ?></td>
+
+
+                <td class="text-center"><a class='btn btn-info btn-xl' onClick="llamarPaginaEditar('<?php echo $fila[0]; ?>')"><span class="glyphicon glyphicon-edit"></span> Generar Perfil</a></td>
               
-            <li role="presentation"><a href="reporteFS.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Nomina de familias seleccionadas</a></li>
-            <li role="presentation"><a href="reporteFS3.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Consolidado de familias para evaluación de la comunidad</a></li>
-            <li role="presentation"><a href="reporteFS4.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Cuadro de resumen dueños de la propiedad</a></li>
-            <li role="presentation"><a href="reporteFS2.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Nomina de familias seleccionadas por puntaje</a></li>
-            <li role="presentation"><a href="perfilFamiliaLocal.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Perfil de familias</a></li>
-
-
-            </ul>
-		<!--	<br>
-			<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
-				<li role="presentation"><a href="imprimirMateriaPrima.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Materia Prima General</a></li>
-                <li role="presentation"><a href="seleccionarTallerM.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Materia Prima por Taller</a></li>
-				<li role="presentation"><a href="imprimirTutores.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Tutores Activos</a></li>
-				<li role="presentation"><a href="imprimirParticipantes.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Participantes Activos</a></li>
-            </ul>
-			<br>
-			<ul class="nav nav-tabs nav-justified"  style="font-size: 17px;">
-				<li role="presentation"><a href="imprimirProducto.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Productos Generales</a></li>
-                <li role="presentation"><a href="buscarParticipante2.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Productos por Participante</a></li>
-				<li role="presentation"><a href="asistenciaPorMes2.php"><i class="zmdi zmdi-print zmdi-hc-fw"></i>Asistencia Por Taller</a></li>
-            </ul>
-        </div> -->
-	
-
- 
-	
-
-
+			
+			
+				
+            </tr>
+            
+		
+	         <?php
+						}
+							?>
 	   
+	   </tbody>
+
+    </table>
+	
+	</div>
+
+        <div class="container">
+           
+	
+	   
+        </div>
 	  
 	   
 	   
@@ -237,5 +296,12 @@ function ayuda(){
 	
 </body>
 </html>
+<?php 
+function dameFecha($fecha){
+	list($year,$mon,$day)=explode('-',$fecha);
+	return date('d-m-Y',mktime(0,0,0,$mon,$day,$year));
+	
+	}
 
+?>
  
