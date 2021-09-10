@@ -108,13 +108,16 @@ while ($fila = pg_fetch_array($query_s)) {
   <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
   <script src="../js/main.js"></script>
 
+  <style>
+    table {
+      table-layout: fixed;
+      word-wrap: break-word;
+    }
+  </style>
 <style>
-  table {
-    table-layout: fixed;
-    word-wrap: break-word;
-}
-</style>
-
+@media print {
+body {-webkit-print-color-adjust: exact;}
+}</style>
 
   <title>Perfil</title>
 </head>
@@ -141,7 +144,7 @@ while ($fila = pg_fetch_array($query_s)) {
     <tbody>
 
       <tr>
-        <td scope="col" colspan="4">
+        <td scope="col" colspan="4" style="color: #000;	background-color: #92cddc !important;;">
           <center>
             <h4><strong>Asociación HPH El Salvador</strong></h4>
           </center>
@@ -201,7 +204,7 @@ while ($fila = pg_fetch_array($query_s)) {
 
 
       <tr>
-        <th scope="row" colspan="4">
+        <th scope="row" colspan="4" style="color: #000;	background-color: #92cddc !important;;">
           <center>
             <h4><strong>Integrantes de la familia</strong></h4>
           </center>
@@ -239,7 +242,7 @@ WHERE familiares_cliente.idcliente ='$idcliente' ");
 
 
       <tr>
-        <th scope="row" colspan="4">
+        <th scope="row" colspan="4" style="color: #000;	background-color: #92cddc !important;;">
           <center>
             <h4><strong>Situación actual de la vivienda</strong></h4>
           </center>
@@ -272,7 +275,7 @@ WHERE familiares_cliente.idcliente ='$idcliente' ");
 
 
       <tr>
-        <th scope="row" colspan="4">
+        <th scope="row" colspan="4" style="color: #000;	background-color: #92cddc !important;;">
           <center>
             <h4><strong>Situación economica</strong></h4>
           </center>
@@ -310,7 +313,7 @@ WHERE familiares_cliente.idcliente ='$idcliente' ");
 
       </tr>
       <tr>
-        <td scope="row" colspan="4">
+        <td scope="row" colspan="4" style="color: #000;	background-color: #92cddc !important;;">
           <center>
             <h4><strong>SOLUCION HABITACIONAL HPH</strong></h4>
           </center>
