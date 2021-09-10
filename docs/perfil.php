@@ -413,7 +413,7 @@ WHERE familiares_cliente.idcliente ='$idcliente' ");
 
       <tr>
         <th scope="row" colspan="2">Teléfono: </th>
-        <td scope="row" colspan="2"> <?php $telefono; ?></td>
+        <td scope="row" colspan="2"> <?php echo $telefono; ?></td>
 
       </tr>
 
