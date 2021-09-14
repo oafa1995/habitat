@@ -32,6 +32,7 @@ if($_SESSION['autenticado']!="yeah"){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../img/tittle.ico"  >
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 	
 	<script src="../js/jquery.min.js"></script>
     <script src="../js/sweet-alert.min.js"></script>
