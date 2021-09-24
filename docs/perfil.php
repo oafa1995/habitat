@@ -72,14 +72,18 @@ while ($fila = pg_fetch_array($query_s)) {
 
 }
 
-$query_s = pg_query($conexion, "SELECT latitud,longitud from datos_finales_es where idsolicitud='$idSolicitud'");
+$query_s = pg_query($conexion, "SELECT latitud,longitud,condicion_actual from datos_finales_es where idsolicitud='$idSolicitud'");
 while ($fila = pg_fetch_array($query_s)) {
   //    $ridpaciente=$fila[0];
   $latitud = $fila[0];
   $longitud = $fila[1];
+  $condicion_actual = $fila[2];
   // $rfecha=$fila[3];
 
 }
+
+//$familiares = array ();
+
 
 ?>
 <!DOCTYPE html>
@@ -114,10 +118,13 @@ while ($fila = pg_fetch_array($query_s)) {
       word-wrap: break-word;
     }
   </style>
-<style>
-@media print {
-body {-webkit-print-color-adjust: exact;}
-}</style>
+  <style>
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+      }
+    }
+  </style>
 
   <title>Perfil</title>
 </head>
@@ -257,7 +264,7 @@ WHERE familiares_cliente.idcliente ='$idcliente' ");
 
       <tr>
         <th scope="row" colspan="2"> Condicion/estado fisico de la Vivienda Actual: </th>
-        <td scope="row" colspan="2"> <?php  ?></td>
+        <td scope="row" colspan="2"> <?php echo $condicion_actual;  ?></td>
 
       </tr>
 
@@ -291,25 +298,86 @@ WHERE familiares_cliente.idcliente ='$idcliente' ");
 
       <tr>
         <th scope="row" colspan="2">Cuantas personas aportan al ingreso familiar: </th>
-        <td scope="row" colspan="2"> <?php  ?></td>
+        <td scope="row" colspan="2"> <?php 
+      
+
+        $nombre_familiar='';// declarando vacia la variable para evitar basura en el acumulador de cadenas
+        
+                                              $query_s = pg_query($conexion, "SELECT idfamiliar,nombres,apellidos,ingresos_pro from familiares_cliente where idcliente='$idcliente' and ingresos_pro!='ninguno' ");
+                                            $cantidadF= pg_num_rows($query_s);
+        
+                                            echo $cantidadF;
+        ?></td>
 
       </tr>
 
       <tr>
         <th scope="row" colspan="2">Quienes Generan el ingreso: </th>
-        <td scope="row" colspan="2"> <?php  ?></td>
+        <td scope="row" colspan="2"> <?php
+
+$parentesco_familiar='';// declarando vacia la variable para evitar basura en el acumulador de cadenas
+
+                                      $query_s = pg_query($conexion, "SELECT idfamiliar,parentesco,ingresos_pro from familiares_cliente where idcliente='$idcliente' and ingresos_pro!='ninguno' ");
+                                      while ($fila = pg_fetch_array($query_s)) {
+                                        //    $ridpaciente=$fila[0];
+
+                                        $parentesco_familiar.= ucfirst($fila[1]).", ";
+                                      
+
+
+                                      }
+
+                                      echo substr($parentesco_familiar, 0, -2);// se quita el espacion y la coma
+
+                                      ?></td>
 
       </tr>
 
       <tr>
         <th scope="row" colspan="2">Tipos de empleos/oficios: </th>
-        <td scope="row" colspan="2"> <?php  ?></td>
+        <td scope="row" colspan="2"> <?php 
+        
+
+        $ocupaciones='';// declarando vacia la variable para evitar basura en el acumulador de cadenas
+
+        $query_s = pg_query($conexion, "SELECT idfamiliar,ocupacion,ingresos_pro from familiares_cliente where idcliente='$idcliente' and ingresos_pro!='ninguno' ");
+        while ($fila = pg_fetch_array($query_s)) {
+          //    $ridpaciente=$fila[0];
+
+          $ocupaciones.= ucfirst($fila[1]).", ";
+        
+
+
+        }
+
+        echo substr($ocupaciones, 0, -2);// se quita el espacion y la coma
+
+
+        
+        ?></td>
 
       </tr>
 
       <tr>
-        <th scope="row" colspan="2">Direcciones de los empleos: </th>
-        <td scope="row" colspan="2"> <?php  ?></td>
+        <th scope="row" colspan="2">: </th>
+        <td scope="row" colspan="2"> <?php
+         $lugar_trabajo='';// declarando vacia la variable para evitar basura en el acumulador de cadenas
+
+         $query_s = pg_query($conexion, "SELECT idfamiliar,lugar_trabajo,ingresos_pro from familiares_cliente where idcliente='$idcliente' and ingresos_pro!='ninguno' ");
+         while ($fila = pg_fetch_array($query_s)) {
+           //    $ridpaciente=$fila[0];
+ 
+           $lugar_trabajo.= ucfirst($fila[1]).", ";
+         
+ 
+ 
+         }
+ 
+         echo substr($lugar_trabajo, 0, -2);// se quita el espacion y la coma
+ 
+ 
+        
+        ?></td>
 
       </tr>
       <tr>
