@@ -1167,7 +1167,7 @@ if($bandera=="add"){
     // VALIDAR POR TIPO DE ARCHIVO. 
     // COMPROBAMOS LA EXTENSIÓN DEL ARCHIVO SÓLO ADMITIMOS JPH, GIF Y PNG 
     if($tipoFile == "image/jpeg" || $tipoFile == "image/gif" || $tipoFile == "image/png"){ 
-    $v2=1;
+    $v1=1;
     } 
     else{ 
     

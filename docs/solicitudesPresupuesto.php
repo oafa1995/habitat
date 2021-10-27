@@ -3,13 +3,37 @@
 header("Location: ../index.php");
 	exit();
 	}
+	date_default_timezone_set('America/El_Salvador');
+$cont2=0;
+$idcliente=$_REQUEST["iddatos"];
+$fecha_actual=date("Y-m-d");
+$anio_actual=date("Y");//año
+
+
+include("../config/conexion.php");
+//$iddatos=$_REQUEST["iddatos"];
+$query_s=pg_query($conexion,"select nombres,apellidos from cliente where idcliente='$idcliente'");
+	while($fila=pg_fetch_array($query_s)){
+//    $ridpaciente=$fila[0];
+ $rnombre=$fila[0]." ".$fila[1];
+   // $rfecha=$fila[3];
+		
+	}
+
+   if($idcliente=="" || $idcliente==null){
+	header("Location: index.php");
+	exit();
+	}
+		
+
+
 include("../config/conexion.php");
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Inicio</title>
+    <title>Solicitudes de <?php echo $rnombre; ?></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../img/tittle.ico"  >
@@ -69,7 +93,19 @@ document.location.href="../config/fin.php";
   }
 	
 	</script>
+    
+    <script type="text/javascript" class="init">
+
+
+
+
+
+ $(document).ready(function () {
+        $('#grid').DataTable();
+    });
+</script>	
 	
+
 	
 	<script>
 	
@@ -80,7 +116,18 @@ function ayuda(){
 }
 	
 	</script>
-	
+    
+    	
+<script type="text/javascript" class="init">
+function llamarPaginaEditar(id){
+	window.open("ingresarPresupuesto.php?iddatos="+id, '_parent');
+	}
+
+
+
+
+</script>
+
 </head>
 <body>
 
@@ -156,8 +203,7 @@ function ayuda(){
 			   </li>
 				
 				
-				
-               
+	
                
 			
 
@@ -167,51 +213,75 @@ function ayuda(){
 			
             </ul>
         </nav>
-		
-		 
-        <div class="container">
-            <div class="page-header">
-              <h1 class="all-tittles">
-			  
-			  
-			  Bienvenido/a <?php echo $_SESSION["cargo"]; ?>
-			  
-			  
-			  <small><?php if(isset($_SESSION)){
-				  
-				  $nomb=$_SESSION["nombresE"];
-				  $ape=$_SESSION["apellidosE"];
-				  echo $nomb;
-				  echo " ".$ape;
-			  } 
-			  			  
-			  ?></small></h1><!--dependiendo del usuario asi seria el msj de bienvenidad -->
-            
-			</div>                                                              
-			
-        </div>
-        
-      
-			   
-	
+				
+        <center>
+				<br>
+				
+                    <h4><span class="all-tittles"><b>Solicitudes de presupuesto aprobadas de: <?php echo $rnombre; ?> </b></span></h4>
+                   
+				</center>    	
   
-       
+        <div class="container-fluid"  style="margin: 50px 0;">
+        <table id="grid" class="display" cellspacing="0" width="99%">
+            <thead>
+                <tr>
+				
+                    <th>Fecha</th>
+               
+                
+                    <th>Estado</th>
+             
+			
+                    <th width="3%">&nbsp;</th>
+
+					       
+		
+                </tr>
+            </thead>
+
+               <tbody>
+			    <?php
+                        include("../config/conexion.php");
+						$query_s= pg_query($conexion, "SELECT * FROM solicitud INNER JOIN 
+                        ficha_tecnica ON solicitud.idsolicitud = ficha_tecnica.idsolicitud 
+                        where solicitud.idcliente='$idcliente' 
+                        and (ficha_tecnica.cubierta_techo+ficha_tecnica.estructura_techo+ficha_tecnica.columnas_contrafuertes+ficha_tecnica.paredes_estructurales+ficha_tecnica.paredes_livianas+ficha_tecnica.piso_evaluacion+ficha_tecnica.otros_evaluacion+ficha_tecnica.inundacion_cuerpo_c+ficha_tecnica.formacion_carcava+ficha_tecnica.obras_mitigacion+ficha_tecnica.despredimiento_taludes+ficha_tecnica.colapso_estructuras_c+ficha_tecnica.arboles_tendido+ficha_tecnica.otros_amenazas)
+                        >=43
+                      ");
+						while($fila=pg_fetch_array($query_s)){
+						?>
+			   
+            <tr>
+  
+
+             
+                <td align="left" style="font-size:15px"><?php echo dameFecha($fila[2]); ?></td>
+                <td align="left" style="font-size:15px"><?php echo "Ficha tecnica aprobada"; ?></td>
 
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br><br>
-<br>
-	  <br><br>
+                <td class="text-center"><a class='btn btn-info btn-xs' onClick="llamarPaginaEditar('<?php echo $fila[0]; ?>')"><span class="glyphicon glyphicon-edit"></span> Ingresar Presupuesto</a></td>
+              
+			
+			
+				
+            </tr>
+            
+		
+	         <?php
+						}
+							?>
+	   
+	   </tbody>
 
+    </table>
+	
+	</div>
+
+        <div class="container">
+           
 	
 	   
-	   
+        </div>
 	  
 	   
 	   
@@ -227,5 +297,12 @@ function ayuda(){
 	
 </body>
 </html>
+<?php 
+function dameFecha($fecha){
+	list($year,$mon,$day)=explode('-',$fecha);
+	return date('d-m-Y',mktime(0,0,0,$mon,$day,$year));
+	
+	}
 
+?>
  

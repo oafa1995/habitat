@@ -1,3 +1,5 @@
 {
-    "liveServer.settings.port": 81
+    "liveServer.settings.port": 81,
+    "cSpell.language": "en",
+    "cSpell.enabled": false
 }

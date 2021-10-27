@@ -821,6 +821,7 @@ if($sexo == "masculino"){
    ////Acumulador seccion 3
    $acumuladorS3=$acumulador-$acumuladorS1-$acumuladorS2;
    ////
+
                      ?>
    
    

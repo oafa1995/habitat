@@ -107,6 +107,19 @@ if($_SESSION['autenticado']!="yeah"){
                         </ul>
                     </li>
                     
+                    <li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-city zmdi-hc-fw"></i>&nbsp;&nbsp;Construcción <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <ul class="list-unstyled">
+                          
+                            <li><a href="buscarClienteFicha.php"><i class="zmdi zmdi-assignment zmdi-hc-fw"></i>&nbsp;&nbsp;Ficha de inspección de vivienda</a></li>      
+
+                         
+                            <li><a href="buscarClientePresupuesto.php"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>&nbsp;&nbsp; Presupuesto</a></li>
+
+                        </ul>
+                    </li>
+                    
+
                     
                     <li>
                         <div class="dropdown-menu-button"><i class="zmdi zmdi-accounts zmdi-hc-fw"></i>&nbsp;&nbsp;Empleado <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>

@@ -3,7 +3,17 @@
 header("Location: ../index.php");
 	exit();
 	}
+
+
 include("../config/conexion.php");
+
+$id=$_SESSION["idUsuario"];
+
+$query_s= pg_query($conexion,"select idagencia from usuario_agencia where idusuario='$id' ");
+while($fila=pg_fetch_array($query_s)){
+  $idagencia=$fila[0];
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -69,7 +79,19 @@ document.location.href="../config/fin.php";
   }
 	
 	</script>
+    
+    <script type="text/javascript" class="init">
+
+
+
+
+
+ $(document).ready(function () {
+        $('#grid').DataTable();
+    });
+</script>	
 	
+
 	
 	<script>
 	
@@ -80,7 +102,19 @@ function ayuda(){
 }
 	
 	</script>
-	
+    
+    	
+<script type="text/javascript" class="init">
+
+
+    function llamarPaginaEditar2(id){
+	window.open("solicitudesFicha.php?iddatos="+id, '_parent');
+	}
+
+    
+
+</script>
+
 </head>
 <body>
 
@@ -157,7 +191,12 @@ function ayuda(){
 				
 				
 				
-               
+               <center>
+				<br>
+				 <li style="color:#fff; cursor:default;">
+                    <h4><span class="all-tittles">Buscar Solicitante</span></h4>
+                </li>
+				</center>    
                
 			
 
@@ -168,50 +207,76 @@ function ayuda(){
             </ul>
         </nav>
 		
-		 
-        <div class="container">
-            <div class="page-header">
-              <h1 class="all-tittles">
-			  
-			  
-			  Bienvenido/a <?php echo $_SESSION["cargo"]; ?>
-			  
-			  
-			  <small><?php if(isset($_SESSION)){
-				  
-				  $nomb=$_SESSION["nombresE"];
-				  $ape=$_SESSION["apellidosE"];
-				  echo $nomb;
-				  echo " ".$ape;
-			  } 
-			  			  
-			  ?></small></h1><!--dependiendo del usuario asi seria el msj de bienvenidad -->
+         
+        <div class="container-fluid"  style="margin: 50px 0;">
+        <table id="grid" class="display" cellspacing="0" width="99%">
+            <thead>
+                <tr>
+				
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Dui</th>
+                    <th>Tel&eacutefono/Celular</th>
+                    <th>Direcci&oacuten</th>
+                    <th>Municipio</th>
+                    <th>Departamento</th>
             
-			</div>                                                              
+             
 			
-        </div>
-        
-      
+                    <th width="3%">&nbsp;</th>
+
+			
+		
+                </tr>
+            </thead>
+
+               <tbody>
+			    <?php
+                        include("../config/conexion.php");
+						$query_sw= pg_query($conexion, "SELECT c.idcliente,c.nombres,c.apellidos,c.dui,c.telefono,c.direccion,c.municipio,c.departamento,c.sexo,s.idsolicitud,s.fecha,sv.materiales_paredes from cliente as c,solicitud as s,situacion_economica_familiar as sef,solicitud_situacion_ec as secf,situacion_salud as ss,solicitud_situacion_salud as sss,situacion_vivienda as sv,solicitud_situacion_vivienda ssv,situacion_organizacion as so,solicitud_situacion_organizacion sso,situacion_enfoque_genero as sg,solicitud_situacion_enfoque_genero ssg,datos_finales_es as df,cliente_agencia as cla WHERE c.idcliente=s.idcliente and s.idsolicitud=secf.idsolicitud and sef.idsituacion=secf.idsituacion and ss.id_situacion_salud=sss.id_situacion_salud and sss.idsolicitud=s.idsolicitud and sv.id_situacion_vivienda=ssv.id_situacion_vivienda and ssv.idsolicitud=s.idsolicitud and so.id_situacion_organizacion=sso.id_situacion_organizacion and sso.idsolicitud=s.idsolicitud and sg.id_situacion_enfoque_genero=ssg.id_situacion_enfoque_genero and ssg.idsolicitud=s.idsolicitud and df.idsolicitud=s.idsolicitud and cla.idcliente=c.idcliente and cla.idagencia='$idagencia' ");
+						while($filaw=pg_fetch_array($query_sw)){
+						?>
 			   
+<?php include("../docs/paraGraficar.php");
+$aux=0;
+$aux=$acumulador;
+if($acumulador>=45){
+?>
+            <tr>
+                <td align="left" style="font-size:15px"><?php echo $filaw[1];  ?></td>
+                <td align="left" style="font-size:15px"><?php echo $filaw[2];  ?></td>
+                <td align="left" style="font-size:15px"><?php echo $filaw[3];  ?></td>
+                <td align="left" style="font-size:15px"><?php echo $filaw[4];  ?></td>
+                <td align="left" style="font-size:15px"><?php echo $filaw[5];  ?></td>
+                <td align="left" style="font-size:15px"><?php echo $filaw[6];  ?></td>
+                <td align="left" style="font-size:15px"><?php echo $filaw[7];  ?></td>
+           
+
+             
+                <td class="text-center"><a class='btn btn-success btn-xs' onClick="llamarPaginaEditar2('<?php echo $filaw[0]; ?>')"><span class="glyphicon glyphicon-edit"></span> Ingresar Ficha</a></td>
+
+			
+			
+				
+            </tr>
+            
+		
+	         <?php
+             }
+						}
+							?>
+	   
+	   </tbody>
+
+    </table>
 	
-  
-       
+	</div>
 
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br><br>
-<br>
-	  <br><br>
-
+        <div class="container">
+           
 	
 	   
-	   
+        </div>
 	  
 	   
 	   
