@@ -8,11 +8,18 @@
 
 	<title>Login </title>
 
-
 	<link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.min.js"></script>
 
+
+
+<!-- Compiled and minified Bootstrap CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css" >
+<!-- Minified JS library -->
+<script src="js/jquery.min.js"></script>
+<!-- Compiled and minified Bootstrap JavaScript -->
+<script src="js/bootstrap.min.js" ></script>
 
 
 <!-- Compiled and minified Bootstrap CSS -->
