@@ -230,7 +230,7 @@ function llamarPaginaEditar(id){
                
                 
                     <th>Estado</th>
-             
+                    <th>Puntaje</th>
 			
                     <th width="3%">&nbsp;</th>
 
@@ -242,7 +242,7 @@ function llamarPaginaEditar(id){
                <tbody>
 			    <?php
                         include("../config/conexion.php");
-						$query_s= pg_query($conexion, "SELECT * FROM solicitud INNER JOIN 
+						$query_s= pg_query($conexion, "SELECT solicitud.idsolicitud,solicitud.idcliente,solicitud.fecha,(ficha_tecnica.cubierta_techo+ficha_tecnica.estructura_techo+ficha_tecnica.columnas_contrafuertes+ficha_tecnica.paredes_estructurales+ficha_tecnica.paredes_livianas+ficha_tecnica.piso_evaluacion+ficha_tecnica.otros_evaluacion+ficha_tecnica.inundacion_cuerpo_c+ficha_tecnica.formacion_carcava+ficha_tecnica.obras_mitigacion+ficha_tecnica.despredimiento_taludes+ficha_tecnica.colapso_estructuras_c+ficha_tecnica.arboles_tendido+ficha_tecnica.otros_amenazas) FROM solicitud INNER JOIN 
                         ficha_tecnica ON solicitud.idsolicitud = ficha_tecnica.idsolicitud 
                         where solicitud.idcliente='$idcliente' 
                         and (ficha_tecnica.cubierta_techo+ficha_tecnica.estructura_techo+ficha_tecnica.columnas_contrafuertes+ficha_tecnica.paredes_estructurales+ficha_tecnica.paredes_livianas+ficha_tecnica.piso_evaluacion+ficha_tecnica.otros_evaluacion+ficha_tecnica.inundacion_cuerpo_c+ficha_tecnica.formacion_carcava+ficha_tecnica.obras_mitigacion+ficha_tecnica.despredimiento_taludes+ficha_tecnica.colapso_estructuras_c+ficha_tecnica.arboles_tendido+ficha_tecnica.otros_amenazas)
@@ -257,6 +257,7 @@ function llamarPaginaEditar(id){
              
                 <td align="left" style="font-size:15px"><?php echo dameFecha($fila[2]); ?></td>
                 <td align="left" style="font-size:15px"><?php echo "Ficha tecnica aprobada"; ?></td>
+                <td align="left" style="font-size:15px"><?php echo $fila[3]; ?></td>
 
 
                 <td class="text-center"><a class='btn btn-info btn-xs' onClick="llamarPaginaEditar('<?php echo $fila[0]; ?>')"><span class="glyphicon glyphicon-edit"></span> Ingresar Presupuesto</a></td>
