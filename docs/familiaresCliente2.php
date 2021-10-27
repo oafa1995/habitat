@@ -615,7 +615,7 @@ var global;
 //var agregaono=0;
 
 	$(document).ready(function(){
-	//	tutu="<?php// echo $totalin; ?>";
+	
 		
 	//	if(tutu!=null){
 	//	$('#total').val(tutu);

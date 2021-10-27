@@ -189,34 +189,13 @@ function ayuda(){
             
 			</div>                                                              
 			
+
+
+     <!--   <img src="../img/foto_familia.jpg" class="img-fluid" alt="Responsive image" style="width:50%;"> -->
+
+            <img src="../img/familia2.png" class="img-fluid" alt="Responsive image" style="width:100%;">
         </div>
         
-      
-			   
-	
-  
-       
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br><br>
-<br>
-	  <br><br>
-
-	
-	   
-	   
-	  
-	   
-	   
-	   
-	   
         <footer class="footer full-reset">
         <div class="footer-copyright full-reset all-tittles"><img src="../img/logoC.png" width ="45" height="45"/>Sistema Habitat Para La Humanidad 2021</div>
 		   

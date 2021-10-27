@@ -290,7 +290,7 @@ WHERE familiares_cliente.idcliente ='$idcliente' ");
       </tr>
 
       <tr>
-        <th scope="row" colspan="2">Ingreso Mensual de la familia: </th>
+        <th scope="row" colspan="2">Ingreso Mensual de la familia ($): </th>
         <td scope="row" colspan="2"> <?php echo $ingreso_hogar; ?></td>
 
       </tr>

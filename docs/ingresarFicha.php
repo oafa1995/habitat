@@ -33,11 +33,35 @@ while ($fila = pg_fetch_array($query_s)) {
     $nombre_completo = $nombres_clientes . " " . $apellidos_clientes;
     $direccion = $fila[2];
     $zona = $fila[3];
+    
     //$edad_cliente = $fila[2];
     // $estado_civil = $fila[3];
     // $direccion = $fila[4];
     // $telefono = $fila[5];
     // $rfecha=$fila[3];
+
+}
+
+
+$query_s = pg_query($conexion, "SELECT edad,discapacidad from familiares_cliente where idcliente='$idcliente'");
+$tercera_edad=0;
+$adultos=0;
+$ninos=0;
+$discapacitados=0;
+while ($fila = pg_fetch_array($query_s)) {
+    //    $ridpaciente=$fila[0];
+    if($fila[0]>=60){
+    $tercera_edad++;
+    }
+    if($fila[0]>=18 && $fila[0]<60){
+    $adultos++;
+    }
+    if($fila[0]<18){
+        $ninos++;
+        }
+        if($fila[1]!="ninguna"){
+            $discapacitados++;
+        }
 
 }
 
@@ -378,6 +402,7 @@ if(totalAB<28){
 
             $("#dui_inspector").mask("99999999-9"); ////////////mascara de entrada para telefono
             $("#dui_atendio").mask("99999999-9");
+            $("#hora").mask("99:99");
 
 
 
@@ -558,15 +583,7 @@ if(totalAB<28){
     </style>
 
 
-    <script type="text/javascript">
-        ///////////////validar solo numeros enteros
-        $(document).ready(function() {
 
-            $('#grupoF').on('input', function() {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-        });
-    </script>
 
     <script type="text/javascript">
         ///////////////validar solo numeros enteros
@@ -696,11 +713,11 @@ if(totalAB<28){
               document.getElementById('comentarios_danos').value == ""  ||
 
 
-              document.getElementById('e_inexistente').value == ""  ||
-              document.getElementById('e_leve').value == ""  ||
-              document.getElementById('e_moderado').value == ""  ||
-              document.getElementById('e_severo').value == ""  ||
-              document.getElementById('e_colapso').value == ""  ||
+            //   document.getElementById('e_inexistente').value == ""  ||
+            //   document.getElementById('e_leve').value == ""  ||
+            //   document.getElementById('e_moderado').value == ""  ||
+            //   document.getElementById('e_severo').value == ""  ||
+            //   document.getElementById('e_colapso').value == ""  ||
 
               document.getElementById('inundacion_cuerpo_c').value == "" ||  
               document.getElementById('formacion_carcava').value == "" ||  
@@ -710,11 +727,11 @@ if(totalAB<28){
               document.getElementById('arboles_tendido').value == "" ||  
               document.getElementById('otros_amenazas').value == "" ||  
               document.getElementById('comentarios_amenazas').value == "" ||  
-              document.getElementById('d_inexistente').value == "" ||  
-              document.getElementById('d_leve').value == "" ||  
-              document.getElementById('d_moderado').value == "" ||  
-              document.getElementById('d_severo').value == "" ||  
-              document.getElementById('d_inminente').value == "" ||  
+            //   document.getElementById('d_inexistente').value == "" ||  
+            //   document.getElementById('d_leve').value == "" ||  
+            //   document.getElementById('d_moderado').value == "" ||  
+            //   document.getElementById('d_severo').value == "" ||  
+            //   document.getElementById('d_inminente').value == "" ||  
               document.getElementById('archivo').value == "" ||  
                document.getElementById('archivo2').value == "" ||  
                document.getElementById('archivo3').value == ""   ||
@@ -725,7 +742,8 @@ if(totalAB<28){
                document.getElementById('firma_inspector').value == ""   ||
                document.getElementById('nombre_atendio').value == ""   ||
                document.getElementById('dui_atendio').value == ""   ||
-               document.getElementById('firma_atendio').value == ""   
+               document.getElementById('firma_atendio').value == ""   ||
+               document.getElementById('hora').value == ""
 
                 ) {
                     alertaErrorA();
@@ -929,12 +947,15 @@ if(totalAB<28){
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="nombre">Fecha</label>
+                    <label class="col-md-4 control-label" for="nombre">Hora
+                    </label>
                     <div class="col-md-2">
-                        <input type="date" id="fecha" name="fecha" class="form-control input-md" autocomplete="off" value="<?= (isset($_POST['apellido'])) ? $_POST['apellido'] : ""; ?>" required>
+                        <input type="text" id="hora" name="hora" class="form-control input-md" autocomplete="off" value="<?= (isset($_POST['apellido'])) ? $_POST['apellido'] : ""; ?>" required>
 
                     </div>
                 </div>
+
+
 
 
 
@@ -943,6 +964,25 @@ if(totalAB<28){
                     <label class="col-md-4 control-label" for="nombre">Nombre: </label>
                     <div class="col-md-5 validate-input" data-validate="Escriba su usuario">
                         <input type="text" id="nombre" name="nombre" placeholder="" class="form-control input-md" autocomplete="off" value="<?php echo $nombre_completo; ?>" readonly>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="nombre">Grupo Familiar </label>
+                    <div class="col-md-5" data-validate="Escriba su usuario">
+              
+                    <textarea id="grupo_F" name="grupo_F" disabled value="Inexistente" class="form-control" rows="1"><?php echo "Tercer edad: ".$tercera_edad; ?>
+                      <?php  echo "Adultos: ".$adultos;?>
+                       <?php  echo  "Niños: ".$ninos;?>
+                      <?php  echo "Discapacitados: ".$discapacitados; ?>
+                        </textarea>
+
+
+
+
+
+
 
                     </div>
                 </div>
@@ -1097,7 +1137,7 @@ if(totalAB<28){
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="nombre">Inmueble debilitado (cercos o mojones) </label>
+                    <label class="col-md-4 control-label" for="nombre">Inmueble delimitado (cercos o mojones) </label>
                     <div class="col-md-2" data-validate="Escriba su usuario">
                         Si <input type="radio" id="inmuebled" name="inmuebled" value="Si">
                         &nbsp;&nbsp; No <input type="radio" id="inmuebled" name="inmuebled" value="No">
@@ -1244,7 +1284,7 @@ if(totalAB<28){
 
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="nombre">Servicio de agua potable <p>Activo</p> </label>
+                    <label class="col-md-4 control-label" for="nombre">Servicio de agua potable activo </label>
                     <div class="col-md-2" data-validate="Escriba su usuario">
                         Si <input type="radio" id="s_aguap" name="s_aguap" value="Si">
                         &nbsp;&nbsp; No <input type="radio" id="s_aguap" name="s_aguap" value="No">
@@ -1328,13 +1368,13 @@ if(totalAB<28){
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">6. VÍAS DE ACCESO</label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
+                   
                     Carretera/ Calle Pavimentada <input type="radio" id="vias_acceso" name="vias_acceso" value="Carretera/ Calle Pavimentada">
                         &nbsp;&nbsp; Calle rural <input type="radio" id="vias_acceso" name="vias_acceso" value="Calle rural" >
                         &nbsp;&nbsp; Servidumbre <input type="radio" id="vias_acceso" name="vias_acceso" value="Servidumbre" >
                         &nbsp;&nbsp; Pasaje peatonal <input type="radio" id="vias_acceso" name="vias_acceso" value="Pasaje peatonal" >
 
-                    </div>
+                 
                 </div>
 
            
@@ -1404,22 +1444,25 @@ if(totalAB<28){
 
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="nombre">Cubierta de techo (Lamina, tejas, ETC) </label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
+                    <label class="col-md-4 control-label" for="nombre">Cubierta de techo (Lamina, tejas, etc) </label>
+                
+              
                         Inexistente <input type="radio" id="cubierta_techo" name="cubierta_techo" onclick="suma1(this.form)"value="1" class="sumatoria1">
+                
+
                   &nbsp;&nbsp; Leve <input type="radio" id="cubierta_techo" name="cubierta_techo" onclick="suma1(this.form)"value="2" >
           &nbsp;&nbsp; Moderado <input type="radio" id="cubierta_techo" name="cubierta_techo"     onclick="suma1(this.form)" value="3" >
                 &nbsp;&nbsp; Severo <input type="radio" id="cubierta_techo" name="cubierta_techo" onclick="suma1(this.form)" value="4" >
                &nbsp;&nbsp; Colapso <input type="radio" id="cubierta_techo" name="cubierta_techo" onclick="suma1(this.form)" value="5" >
 
 
-                    </div>
+                  
                 </div>
 
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="nombre">Estructura de techo (Lamina, tejas, etc) </label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
+                    <label class="col-md-4 control-label" for="nombre">Estructura de techo (polines, macomber, etc) </label>
+               
                         Inexistente <input type="radio" id="estructura_techo" name="estructura_techo" onclick="suma1(this.form)"value="1" class="sumatoria1">
                   &nbsp;&nbsp; Leve <input type="radio" id="estructura_techo" name="estructura_techo" onclick="suma1(this.form)"value="2" >
               &nbsp;&nbsp; Moderado <input type="radio" id="estructura_techo" name="estructura_techo" onclick="suma1(this.form)" value="3">
@@ -1427,14 +1470,14 @@ if(totalAB<28){
                &nbsp;&nbsp; Colapso <input type="radio" id="estructura_techo" name="estructura_techo" onclick="suma1(this.form)" value="5" >
 
 
-                    </div>
+              
                 </div>
 
 
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Columnas o contrafuertes </label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
+            
                         Inexistente <input type="radio" id="columnas_contrafuertes" name="columnas_contrafuertes" onclick="suma1(this.form)"value="1" class="sumatoria1"  >
                   &nbsp;&nbsp; Leve <input type="radio" id="columnas_contrafuertes" name="columnas_contrafuertes" onclick="suma1(this.form)"value="2"   >
               &nbsp;&nbsp; Moderado <input type="radio" id="columnas_contrafuertes" name="columnas_contrafuertes" onclick="suma1(this.form)" value="3"   >
@@ -1442,13 +1485,13 @@ if(totalAB<28){
                &nbsp;&nbsp; Colapso <input type="radio" id="columnas_contrafuertes" name="columnas_contrafuertes" onclick="suma1(this.form)" value="5"   >
 
 
-                    </div>
+                
 
 
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Paredes estructurales (bloque, concreto, adobe, etc.) </label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
+   
                         Inexistente <input type="radio" id="paredes_estructurales" name="paredes_estructurales" onclick="suma1(this.form)"value="1"  class="sumatoria1" >
                   &nbsp;&nbsp; Leve <input type="radio" id="paredes_estructurales" name="paredes_estructurales" onclick="suma1(this.form)"value="2"    >
               &nbsp;&nbsp; Moderado <input type="radio" id="paredes_estructurales" name="paredes_estructurales" onclick="suma1(this.form)" value="3"   >
@@ -1456,13 +1499,13 @@ if(totalAB<28){
                &nbsp;&nbsp; Colapso <input type="radio" id="paredes_estructurales" name="paredes_estructurales" onclick="suma1(this.form)" value="5"   >
 
 
-                    </div>
+             
                 </div>
 
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Paredes livianas (tablayeso, lámina, etc.) </label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
+           
                         Inexistente <input type="radio" id="paredes_livianas" name="paredes_livianas" onclick="suma1(this.form)"value="1"    class="sumatoria1"  >
                   &nbsp;&nbsp; Leve <input type="radio" id="paredes_livianas" name="paredes_livianas" onclick="suma1(this.form)"value="2"   >
               &nbsp;&nbsp; Moderado <input type="radio" id="paredes_livianas" name="paredes_livianas" onclick="suma1(this.form)" value="3" >
@@ -1470,13 +1513,13 @@ if(totalAB<28){
                &nbsp;&nbsp; Colapso <input type="radio" id="paredes_livianas" name="paredes_livianas" onclick="suma1(this.form)" value="5">
 
 
-                    </div>
+               
                 </div>
 
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Piso (concreto, cerámico, ladrillo, tierra, etc.)</label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
+            
                         Inexistente <input type="radio" id="piso_evaluacion" name="piso_evaluacion" onclick="suma1(this.form)"value="1"  class="sumatoria1">
                   &nbsp;&nbsp; Leve <input type="radio" id="piso_evaluacion" name="piso_evaluacion" onclick="suma1(this.form)"value="2" >
               &nbsp;&nbsp; Moderado <input type="radio" id="piso_evaluacion" name="piso_evaluacion" onclick="suma1(this.form)" value="3">
@@ -1484,12 +1527,11 @@ if(totalAB<28){
                &nbsp;&nbsp; Colapso <input type="radio" id="piso_evaluacion" name="piso_evaluacion" onclick="suma1(this.form)" value="5" >
 
 
-                    </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Otros: </label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
+      
                         Inexistente <input type="radio" id="otros_evaluacion" name="otros_evaluacion" onclick="suma1(this.form)"value="1"  class="sumatoria1">
                   &nbsp;&nbsp; Leve <input type="radio" id="otros_evaluacion" name="otros_evaluacion" onclick="suma1(this.form)"value="2"  >
               &nbsp;&nbsp; Moderado <input type="radio" id="otros_evaluacion" name="otros_evaluacion" onclick="suma1(this.form)" value="3" >
@@ -1497,7 +1539,7 @@ if(totalAB<28){
                &nbsp;&nbsp; Colapso <input type="radio" id="otros_evaluacion" name="otros_evaluacion" onclick="suma1(this.form)" value="5" >
 
 
-                    </div>
+                
                 </div>
 
                 <!-- Text input-->
@@ -1524,8 +1566,9 @@ if(totalAB<28){
                 </div>
                 <br>
 
+                <!--
 
- <!-- Aqui va DESCRIPCIÓN DE NIVELES DE  TIPOS  DE AMENAZAS Y VULNERABILIDADES:-->
+
  <p style="text-align: center;"><b>Descripción de niveles de  tipos  daños en elementos:</b></p>
 
  <div class="form-group">
@@ -1578,7 +1621,7 @@ if(totalAB<28){
 
                     </div>
                 </div>
-
+                                                -->
 <br>
 
 <br>
@@ -1590,7 +1633,6 @@ if(totalAB<28){
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Inundación por cuerpo de agua cercano (rio, quebrada, etc) </label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
                         Inexistente <input type="radio" id="inundacion_cuerpo_c" name="inundacion_cuerpo_c"           onclick="suma2(this.form)"value="1"       class="sumatoria2"    >
                         &nbsp;&nbsp; Leve <input type="radio" id="inundacion_cuerpo_c" name="inundacion_cuerpo_c"     onclick="suma2(this.form)"value="2"     >
                         &nbsp;&nbsp; Moderado <input type="radio" id="inundacion_cuerpo_c" name="inundacion_cuerpo_c" onclick="suma2(this.form)" value="3" >
@@ -1598,14 +1640,13 @@ if(totalAB<28){
                         &nbsp;&nbsp; Colapso <input type="radio" id="inundacion_cuerpo_c" name="inundacion_cuerpo_c"  onclick="suma2(this.form)" value="5"   >
 
 
-                    </div>
+                 
                 </div>
 
 
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Formación de carcava cercana a la vivienda </label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
                         Inexistente <input type="radio" id="formacion_carcava" name="formacion_carcava"          onclick="suma2(this.form)"value="1" class="sumatoria2" >
                         &nbsp;&nbsp; Leve <input type="radio" id="formacion_carcava" name="formacion_carcava"    onclick="suma2(this.form)"value="2" >
                         &nbsp;&nbsp; Moderado <input type="radio" id="formacion_carcava" name="formacion_carcava"onclick="suma2(this.form)" value="3"  >
@@ -1613,13 +1654,11 @@ if(totalAB<28){
                         &nbsp;&nbsp; Colapso <input type="radio" id="formacion_carcava" name="formacion_carcava" onclick="suma2(this.form)" value="5"   >
 
 
-                    </div>
                 </div>
 
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Obras de mitigación afectadas (muros de retención, contención, etc.)</label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
                         Inexistente <input type="radio" id="obras_mitigacion" name="obras_mitigacion"            onclick="suma2(this.form)"value="1"   class="sumatoria2"    >
                         &nbsp;&nbsp; Leve <input type="radio" id="obras_mitigacion" name="obras_mitigacion"      onclick="suma2(this.form)"value="2"        >
                         &nbsp;&nbsp; Moderado <input type="radio" id="obras_mitigacion" name="obras_mitigacion"  onclick="suma2(this.form)" value="3"   >
@@ -1627,12 +1666,10 @@ if(totalAB<28){
                         &nbsp;&nbsp; Colapso <input type="radio" id="obras_mitigacion" name="obras_mitigacion"   onclick="suma2(this.form)" value="5"    >
 
 
-                    </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Desprendimiento de tierra en taludes cercanos</label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
                         Inexistente <input type="radio" id="despredimiento_taludes" name="despredimiento_taludes"            onclick="suma2(this.form)"value="1" class="sumatoria2"  >
                         &nbsp;&nbsp; Leve <input type="radio" id="despredimiento_taludes" name="despredimiento_taludes"      onclick="suma2(this.form)"value="2"   >
                         &nbsp;&nbsp; Moderado <input type="radio" id="despredimiento_taludes" name="despredimiento_taludes"  onclick="suma2(this.form)" value="3"   >
@@ -1640,12 +1677,10 @@ if(totalAB<28){
                         &nbsp;&nbsp; Colapso <input type="radio" id="despredimiento_taludes" name="despredimiento_taludes"   onclick="suma2(this.form)" value="5"  >
 
 
-                    </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Colapso de estructuras cercanas (viviendas, taludes, muros, pozos, etc)</label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
                         Inexistente <input type="radio" id="colapso_estructuras_c" name="colapso_estructuras_c"           onclick="suma2(this.form)"value="1"  class="sumatoria2"   >
                         &nbsp;&nbsp; Leve <input type="radio" id="colapso_estructuras_c" name="colapso_estructuras_c"     onclick="suma2(this.form)"value="2"   >
                         &nbsp;&nbsp; Moderado <input type="radio" id="colapso_estructuras_c" name="colapso_estructuras_c" onclick="suma2(this.form)" value="3"  >
@@ -1653,12 +1688,11 @@ if(totalAB<28){
                         &nbsp;&nbsp; Colapso <input type="radio" id="colapso_estructuras_c" name="colapso_estructuras_c"  onclick="suma2(this.form)" value="5"  >
 
 
-                    </div>
+                   
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Arboles y/o tendido electrico</label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
                         Inexistente <input type="radio" id="arboles_tendido" name="arboles_tendido"           onclick="suma2(this.form)"value="1"  class="sumatoria2" >
                         &nbsp;&nbsp; Leve <input type="radio" id="arboles_tendido" name="arboles_tendido"     onclick="suma2(this.form)"value="2"  >
                         &nbsp;&nbsp; Moderado <input type="radio" id="arboles_tendido" name="arboles_tendido" onclick="suma2(this.form)" value="3"  >
@@ -1666,12 +1700,12 @@ if(totalAB<28){
                         &nbsp;&nbsp; Colapso <input type="radio" id="arboles_tendido" name="arboles_tendido"  onclick="suma2(this.form)" value="5" >
 
 
-                    </div>
+              
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="nombre">Otros:</label>
-                    <div class="col-md-2" data-validate="Escriba su usuario">
+
                         Inexistente <input type="radio" id="otros_amenazas" name="otros_amenazas"           onclick="suma2(this.form)"value="1"   class="sumatoria2"     >
                         &nbsp;&nbsp; Leve <input type="radio" id="otros_amenazas" name="otros_amenazas"     onclick="suma2(this.form)"value="2"        >
                         &nbsp;&nbsp; Moderado <input type="radio" id="otros_amenazas" name="otros_amenazas" onclick="suma2(this.form)" value="3"     >
@@ -1679,7 +1713,6 @@ if(totalAB<28){
                         &nbsp;&nbsp; Colapso <input type="radio" id="otros_amenazas" name="otros_amenazas"  onclick="suma2(this.form)" value="5"  >
 
 
-                    </div>
                 </div>
 
                     <!-- Text input-->
@@ -1707,7 +1740,9 @@ if(totalAB<28){
 <br><br><br>
 
 
- <!-- Aqui va DESCRIPCIÓN DE NIVELES DE  TIPOS  DE AMENAZAS Y VULNERABILIDADES:-->
+<!--
+
+
  <p style="text-align: center;"><b>Descripción de niveles de  tipos  de amenazas y vulnerabilidades:</b></p>
 
  <div class="form-group">
@@ -1760,7 +1795,7 @@ if(totalAB<28){
 
                     </div>
                 </div>
-
+                                                -->
 <br>
 
 <br>
@@ -1803,7 +1838,7 @@ if(totalAB<28){
 </div>
 
 <br><br><br>
-<p style="text-align: center;"><b>REALIZÓ LA INSPECCIÓN:</b></p>
+<p style="text-align: center;"><b>Realizó la inspección:</b></p>
 <div class="form-group">
   <label class="col-md-4 control-label" for="nombre_inspector">Nombre</label>  
   <div class="col-md-3">
@@ -1909,22 +1944,16 @@ subir<span>
 
 <p style="text-align: center;"><b>12. COMENTARIOS ADICIONALES PARA PROCESO CONSTRUCTIVO</b></p>
 
-
 <div class="form-group">
-  <label class="col-md-4 control-label" for="salario" id="lfoto"></label>  
-<div class="col-md-4">
-  <input type="text" id="url-archivo" readonly class="form-control input-md mask-telefono" autocomplete="off"/>
-</div>
-<div class="col-md-4">
-<label class="cargar3" id="s">
-subir<span>
-<input type="file" id="archivo3" name="archivo3" required/>
-</span>
-</label>
-</div>
+                    <label class="col-md-4 control-label" for="nombre">Comentarios: </label>
+                    <div class="col-md-5" data-validate="Escriba su usuario">
+                        <textarea id="archivo3" name="archivo3"  class="form-control" rows="3"></textarea>
 
 
-</div>
+
+                    </div>
+                </div>
+
 
                 <!-- Button -->
                 <!-- Button -->
@@ -2028,11 +2057,11 @@ $paredes_livianas  = $_REQUEST["paredes_livianas"];
 $piso_evaluacion  = $_REQUEST["piso_evaluacion"];
 $otros_evaluacion  = $_REQUEST["otros_evaluacion"];
 $comentarios_danos  = $_REQUEST["comentarios_danos"];
-$e_inexistente  = $_REQUEST["e_inexistente"];
-$e_leve  = $_REQUEST["e_leve"];
-$e_moderado  = $_REQUEST["e_moderado"];
-$e_severo  = $_REQUEST["e_severo"];
-$e_colapso  = $_REQUEST["e_colapso"];
+// $e_inexistente  = $_REQUEST["e_inexistente"];
+// $e_leve  = $_REQUEST["e_leve"];
+// $e_moderado  = $_REQUEST["e_moderado"];
+// $e_severo  = $_REQUEST["e_severo"];
+// $e_colapso  = $_REQUEST["e_colapso"];
 $inundacion_cuerpo_c  = $_REQUEST["inundacion_cuerpo_c"];
 $formacion_carcava  = $_REQUEST["formacion_carcava"];
 $obras_mitigacion  = $_REQUEST["obras_mitigacion"];
@@ -2041,11 +2070,11 @@ $colapso_estructuras_c  = $_REQUEST["colapso_estructuras_c"];
 $arboles_tendido  = $_REQUEST["arboles_tendido"];
 $otros_amenazas  = $_REQUEST["otros_amenazas"];
 $comentarios_amenazas  = $_REQUEST["comentarios_amenazas"];
-$d_inexistente  = $_REQUEST["d_inexistente"];
-$d_leve  = $_REQUEST["d_leve"];
-$d_moderado  = $_REQUEST["d_moderado"];
-$d_severo  = $_REQUEST["d_severo"];
-$d_inminente  = $_REQUEST["d_inminente"];
+// $d_inexistente  = $_REQUEST["d_inexistente"];
+// $d_leve  = $_REQUEST["d_leve"];
+// $d_moderado  = $_REQUEST["d_moderado"];
+// $d_severo  = $_REQUEST["d_severo"];
+// $d_inminente  = $_REQUEST["d_inminente"];
 //$archivo  = $_REQUEST["archivo"];
 //$archivo2  = $_REQUEST["archivo2"];
 //$archivo3  = $_REQUEST["archivo3"];
@@ -2069,11 +2098,8 @@ $tamanoBytes2 = $_FILES['archivo2']['size']; // En bytes
 $tipoFile2 = $_FILES['archivo2']['type'];
 
 
+$archivo3  = $_REQUEST["archivo3"];
 
-$temp3 = $_FILES['archivo3']['tmp_name']; // tmp name (no se puede cambiar el nombre nos devuelve la ubicación temporal del archivo. 
-$name3 = $_FILES['archivo3']['name']; // nombre original del archivo 
-$tamanoBytes3 = $_FILES['archivo3']['size']; // En bytes 
-$tipoFile3 = $_FILES['archivo3']['type'];
 
 $temp4 = $_FILES['firma_inspector']['tmp_name']; // tmp name (no se puede cambiar el nombre nos devuelve la ubicación temporal del archivo. 
 $name4 = $_FILES['firma_inspector']['name']; // nombre original del archivo 
@@ -2087,6 +2113,7 @@ $tipoFile5 = $_FILES['firma_atendio']['type'];
 
 
 
+$hora  = $_REQUEST["hora"];
 
 
 
@@ -2358,67 +2385,67 @@ $tipoFile5 = $_FILES['firma_atendio']['type'];
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
-// VALIDAR PESO DEL ARCHIVO. LIMITAR SUBIDA POR PESO 
-    // LIMITAMOS A 300KB 
-    $kiloBytes3 = $tamanoBytes3/1024; // esto nos da la cantidad de kb 
-    if($kiloBytes3 > 300000){ 
-    echo "El archivo supera los 3000 KB &lt;br/&gt;";  
+// // VALIDAR PESO DEL ARCHIVO. LIMITAR SUBIDA POR PESO 
+//     // LIMITAMOS A 300KB 
+//     $kiloBytes3 = $tamanoBytes3/1024; // esto nos da la cantidad de kb 
+//     if($kiloBytes3 > 300000){ 
+//     echo "El archivo supera los 3000 KB &lt;br/&gt;";  
     
-    } else{
-        $v3=1;
-    }
+//     } else{
+//         $v3=1;
+//     }
     
-    // VALIDAR POR TIPO DE ARCHIVO. 
-    // COMPROBAMOS LA EXTENSIÓN DEL ARCHIVO SÓLO ADMITIMOS JPH, GIF Y PNG 
-    if($tipoFile3 == "image/jpeg" || $tipoFile3 == "image/gif" || $tipoFile3 == "image/png"){ 
-    $v3=1;
-    } 
-    else{ 
+//     // VALIDAR POR TIPO DE ARCHIVO. 
+//     // COMPROBAMOS LA EXTENSIÓN DEL ARCHIVO SÓLO ADMITIMOS JPH, GIF Y PNG 
+//     if($tipoFile3 == "image/jpeg" || $tipoFile3 == "image/gif" || $tipoFile3 == "image/png"){ 
+//     $v3=1;
+//     } 
+//     else{ 
     
-    } 
+//     } 
     
     
-    // LE ASIGNAMOS UN NOMBRE DE EXTENSIÓN A LOS ARCHIVOS GRÁFICOS 
-    switch ($tipoFile3) 
-    { 
-    case 'image/jpeg': 
-    $ext = ".jpg"; 
-    break;
+//     // LE ASIGNAMOS UN NOMBRE DE EXTENSIÓN A LOS ARCHIVOS GRÁFICOS 
+//     switch ($tipoFile3) 
+//     { 
+//     case 'image/jpeg': 
+//     $ext = ".jpg"; 
+//     break;
     
-    case 'image/gif': 
-    $ext = ".gif"; 
-    break; 
+//     case 'image/gif': 
+//     $ext = ".gif"; 
+//     break; 
     
-    case 'image/png': 
-    $ext = ".png"; 
-    break; 
-    }
+//     case 'image/png': 
+//     $ext = ".png"; 
+//     break; 
+//     }
   
-    // VALOR ALEATORIO CON EL QUE SE ALMACENARÁ EL ARCHIVO 
-    $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"; 
-    $cad = ""; 
-    // 18 ES EL LARGO DEL STRING RANDOM, ESTE SERÁ EL TAMAÑO DEL NOMBRE DEL ARCHIVO 
-    for($i=0;$i<18;$i++) { 
-    $cad .= substr($str,rand(0,62),1); 
-    }
+//     // VALOR ALEATORIO CON EL QUE SE ALMACENARÁ EL ARCHIVO 
+//     $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"; 
+//     $cad = ""; 
+//     // 18 ES EL LARGO DEL STRING RANDOM, ESTE SERÁ EL TAMAÑO DEL NOMBRE DEL ARCHIVO 
+//     for($i=0;$i<18;$i++) { 
+//     $cad .= substr($str,rand(0,62),1); 
+//     }
     
-    // REEMPLAZAR EN CASO DE NOMBRE COMPUESTOS LOS ESPACIOS POR GUIÓN BAJO 
-    //$alea1 = str_replace(" ","_",$alea1);
+//     // REEMPLAZAR EN CASO DE NOMBRE COMPUESTOS LOS ESPACIOS POR GUIÓN BAJO 
+//     //$alea1 = str_replace(" ","_",$alea1);
     
-    $alea3 = $cad.$ext; 
-    echo "Alea: " .$alea3 ."&lt;br/&gt;";
+//     $alea3 = $cad.$ext; 
+//     echo "Alea: " .$alea3 ."&lt;br/&gt;";
     
-    //copy($temp,$alea1); 
-    $fecha = date("y-m-d");
+//     //copy($temp,$alea1); 
+//     $fecha = date("y-m-d");
     
     
-    // Indicamos el directorio donde se guardará el archivo 
-    $dir = "../viviendantes/"; 
-    move_uploaded_file ($temp3,"$dir/$alea3");
+//     // Indicamos el directorio donde se guardará el archivo 
+//     $dir = "../viviendantes/"; 
+//     move_uploaded_file ($temp3,"$dir/$alea3");
 
 
-//$query_s2=pg_query($conexion,"select * from cliente where dui='$dui' ");
-//	$rows = pg_num_rows($query_s2);
+// //$query_s2=pg_query($conexion,"select * from cliente where dui='$dui' ");
+// //	$rows = pg_num_rows($query_s2);
 	
 
 ////////////////////////////////////////////////////
@@ -2649,7 +2676,8 @@ $result2=pg_query($conexion,"insert into cliente_agencia (idcliente,idagencia) v
     nombre_atendio,
     dui_atendio,
     firma_atendio,
-    idsolicitud
+    idsolicitud,
+    hora
     ) values ('$fecha',
     '$ancho',
     '$largo',
@@ -2698,11 +2726,11 @@ $result2=pg_query($conexion,"insert into cliente_agencia (idcliente,idagencia) v
     '$piso_evaluacion',
     '$otros_evaluacion',
     '$comentarios_danos',
-    '$e_inexistente',
-    '$e_leve',
-    '$e_moderado',
-    '$e_severo',
-    '$e_colapso',
+    -- '$e_inexistente',
+    -- '$e_leve',
+    -- '$e_moderado',
+    -- '$e_severo',
+    -- '$e_colapso',
     '$inundacion_cuerpo_c',
     '$formacion_carcava',
     '$obras_mitigacion',
@@ -2711,21 +2739,22 @@ $result2=pg_query($conexion,"insert into cliente_agencia (idcliente,idagencia) v
     '$arboles_tendido',
     '$otros_amenazas',
     '$comentarios_amenazas',
-    '$d_inexistente',
-    '$d_leve',
-    '$d_moderado',
-    '$d_severo',
-    '$d_inminente',
+    -- '$d_inexistente',
+    -- '$d_leve',
+    -- '$d_moderado',
+    -- '$d_severo',
+    -- '$d_inminente',
     '$alea1',
     '$alea2',
-    '$alea3',
+    '$archivo3',
     '$nombre_inspector',
     '$dui_inspector',
     '$alea4',
     '$nombre_atendio',
     '$dui_atendio',
     '$alea5',
-    '$idsolicitud'
+    '$idsolicitud',
+    '$hora'
     
     
     

@@ -204,12 +204,7 @@ function llamarPaginaEditar(id){
 				
 				
 				
-               <center>
-				<br>
-				 <li style="color:#fff; cursor:default;">
-                    <h4><span class="all-tittles">Solicitudes de <?php echo $rnombre; ?></span></h4>
-                </li>
-				</center>    
+              
                
 			
 
@@ -219,7 +214,14 @@ function llamarPaginaEditar(id){
 			
             </ul>
         </nav>
-		
+	
+        
+        <center>
+				<br>
+				
+                    <h4><span class="all-tittles"><b> Solicitudes de inspección tecnica <?php echo $rnombre; ?> </b></span></h4>
+ 
+				</center>    
   
         <div class="container-fluid"  style="margin: 50px 0;">
         <table id="grid" class="display" cellspacing="0" width="99%">

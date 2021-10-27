@@ -191,12 +191,7 @@ function ayuda(){
 				
 				
 				
-               <center>
-				<br>
-				 <li style="color:#fff; cursor:default;">
-                    <h4><span class="all-tittles">Buscar Solicitante</span></h4>
-                </li>
-				</center>    
+          
                
 			
 
@@ -206,7 +201,13 @@ function ayuda(){
 			
             </ul>
         </nav>
-		
+
+        <center>
+				<br>
+			
+                    <h4><span class="all-tittles"><b> Buscar cliente con estudio tecnico aprobado </b></span></h4>
+              
+				</center>   	
          
         <div class="container-fluid"  style="margin: 50px 0;">
         <table id="grid" class="display" cellspacing="0" width="99%">

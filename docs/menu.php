@@ -108,7 +108,7 @@ if($_SESSION['autenticado']!="yeah"){
                     </li>
                     
                     <li>
-                        <div class="dropdown-menu-button"><i class="zmdi zmdi-city zmdi-hc-fw"></i>&nbsp;&nbsp;Construcción <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-city zmdi-hc-fw"></i>&nbsp;&nbsp;Información técnica constructiva <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
                           
                             <li><a href="buscarClienteFicha.php"><i class="zmdi zmdi-assignment zmdi-hc-fw"></i>&nbsp;&nbsp;Ficha de inspección de vivienda</a></li>      
