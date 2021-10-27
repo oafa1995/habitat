@@ -194,7 +194,7 @@ function ayuda(){
                <center>
 				<br>
 				 <li style="color:#fff; cursor:default;">
-                    <h4><span class="all-tittles">Buscar Solicitante</span></h4>
+                    <h4><span class="all-tittles">Buscar Solicitante para ingreso de ficha tecnica</span></h4>
                 </li>
 				</center>    
                
